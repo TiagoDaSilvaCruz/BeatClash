@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Cursor with Hexagon Click</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #282c34;
+    }
+
+    /* Círculo que servirá como cursor personalizado */
+    .custom-cursor {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.6);
+      pointer-events: none; /* Faz com que o círculo não interfira no clique */
+    }
+
+    /* Hexágono */
+    .hexagono {
+      width: 80px;
+      height: 80px;
+      background-color: #61dafb;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-cursor" id="customCursor"></div>
+
+  <!-- Exemplo de hexágono -->
+  <div class="hexagono"></div>
+
+  <script>
+    const customCursor = document.getElementById('customCursor');
+
+    // Mover o cursor personalizado com o mouse
+    document.addEventListener('mousemove', (e) => {
+      // Definir a posição do círculo do cursor
+      customCursor.style.left = `${e.pageX - 25}px`; // Subtrai metade do tamanho do círculo
+      customCursor.style.top = `${e.pageY - 25}px`;
+    });
+
+    // Detectar clique nos hexágonos quando o cursor colide com eles
+    document.addEventListener('click', (e) => {
+      const cursorRect = customCursor.getBoundingClientRect();
+
+      // Seleciona todos os hexágonos na tela
+      const hexagonos = document.querySelectorAll('.hexagono');
+
+      // Verifica colisão entre o cursor e os hexágonos
+      hexagonos.forEach(hex => {
+        const hexRect = hex.getBoundingClientRect();
+
+        // Verifica se há interseção entre o círculo do cursor e o hexágono
+        if (
+          cursorRect.left < hexRect.right &&
+          cursorRect.right > hexRect.left &&
+          cursorRect.top < hexRect.bottom &&
+          cursorRect.bottom > hexRect.top
+        ) {
+          // Se colidir, remover o hexágono
+          hex.remove();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

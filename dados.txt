@@ -1,0 +1,6 @@
+Pista: 1, Tempo: 5s, Tipo: 1
+Pista: 2, Tempo: 6s, Tipo: 1
+Pista: 1, Tempo: 7s, Tipo: 1
+Pista: 1, Tempo: 9s, Tipo: 1
+Pista: 2, Tempo: 10s, Tipo: 1
+Pista: 1, Tempo: 11s, Tipo: 1

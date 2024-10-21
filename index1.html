@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="teclas.css">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="contador-erros" id="contador-erros">vida: 20</div>
+
+  <video class="video-background" autoplay loop muted playsinline>
+    <source src="kid-jinx.3840x2160.mp4" type="video/mp4">
+    Seu navegador não suporta o elemento de vídeo.
+  </video>
+
+  <div class="status p3">
+    <x-sign class="jogador">
+      <div class="circulo">
+        <img class="p1" src="logo.webp" alt="">
+      </div>
+    </x-sign>
+  
+    <div class="caixa">
+      <h1>Player</h1>
+    </div>
+
+  </div>
+  <div class="caixa-estrela c1">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+  </div>
+
+  <div class="time">
+    <p>VS</p>
+    <h1></h1>
+  </div>
+
+  <div class="status p2">
+    <x-sign class="jogador">
+      <div class="circulo">
+        <img class="p1" src="logo.webp" alt="">
+      </div>
+    </x-sign>
+
+    <div class="caixa">
+      <h1>Player</h1>
+    </div>
+  </div>
+
+  <div class="caixa-estrela c2">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+    <img src="neon-blue-star-banner-neon-star-png.webp" alt="">
+  </div>
+
+  <div class="game-container">
+    <!-- As pistas são invisíveis, mas controlam a posição dos hexágonos -->
+    <div class="pista pista1"></div>
+    <div class="pista pista2"></div>
+    <div class="pista pista3"></div>
+    <div class="pista pista4"></div>
+  </div>
+
+  <div class="custom-cursor" id="customCursor"></div>
+
+  <script src="game.js"></script>
+
+  <div class="infor">
+    <button onclick="iniciar()">Iniciar</button>
+    <button>Sair</button>
+
+    <div class="infor-musica">
+      <img class="disco" src="vinyl_PNG4.png" alt="">
+      <img class="capa" src="OIP.jpg" alt="">
+    </div>
+  </div>
+
+  <div class="menu" id="menu">
+    <button onclick="voltar()">continuar</button>
+    <button onclick="reiniciar()">Reiniciar</button>
+    <button onclick="sair()">Sair</button>
+  </div>
+
+  <audio id="audio" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
+
+  <script>
+    const customCursor = document.getElementById('customCursor');
+    let currentHexTipo1 = null;
+    let currentHexTipo2 = null;
+    let currentHexTipo3 = null;
+  
+    // Mover o cursor personalizado com o mouse
+    document.addEventListener('mousemove', (e) => {
+      customCursor.style.left = `${e.pageX - 25}px`; // Subtrai metade do tamanho do círculo
+      customCursor.style.top = `${e.pageY - 25}px`;
+  
+      // Reinicia a detecção dos hexágonos
+      currentHexTipo1 = null;
+      currentHexTipo2 = null;
+      currentHexTipo3 = null;
+  
+      // Verificar se o cursor está sobre os diferentes tipos de hexágonos
+      const cursorRect = customCursor.getBoundingClientRect();
+      const hexagonos = document.querySelectorAll('.hexagono');
+  
+      hexagonos.forEach(hex => {
+        const hexRect = hex.getBoundingClientRect();
+  
+        if (
+          cursorRect.left < hexRect.right &&
+          cursorRect.right > hexRect.left &&
+          cursorRect.top < hexRect.bottom &&
+          cursorRect.bottom > hexRect.top
+        ) {
+          if (hex.querySelector('.linhatipo1')) {
+            currentHexTipo1 = hex;
+            hex.classList.add('targeted'); // Adiciona uma classe para indicar que está sendo alvo
+          } else if (hex.querySelector('.linhatipo2')) {
+            currentHexTipo2 = hex;
+            hex.classList.add('targeted');
+          } else if (hex.querySelector('.linhatipo3')) {
+            currentHexTipo3 = hex;
+            hex.classList.add('targeted');
+          } else {
+            hex.classList.remove('targeted'); // Remove a classe se não for alvo
+          }
+        } else {
+          hex.classList.remove('targeted');
+        }
+      });
+    });
+  
+    // Eventos de tecla para detectar as teclas 'A', 'S' e 'D'
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'a' || e.key === 'A') {
+        // Verifica se o cursor está sobre um hexágono do tipo linhatipo1
+        if (currentHexTipo1) {
+          currentHexTipo1.remove(); // Remove o hexágono do tipo 1
+        }
+      }
+      if (e.key === 's' || e.key === 'S') {
+        // Verifica se o cursor está sobre um hexágono do tipo linhatipo2
+        if (currentHexTipo2) {
+          currentHexTipo2.remove(); // Remove o hexágono do tipo 2
+        }
+      }
+      if (e.key === 'd' || e.key === 'D') {
+        // Verifica se o cursor está sobre um hexágono do tipo linhatipo3
+        if (currentHexTipo3) {
+          currentHexTipo3.remove(); // Remove o hexágono do tipo 3
+        }
+      }
+    });
+  </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+</body>
+</html>

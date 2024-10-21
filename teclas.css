@@ -1,0 +1,145 @@
+
+.hexagono{
+    position: absolute;
+    z-index: 1;
+    top: 300px;
+}
+.game-container {
+    position: relative;
+    width: 50vw;
+    height: 100vh;
+    margin-top: -80px;
+    display: flex;
+  }
+
+  .hexagono {
+    width: 120px;
+    height: 130px;
+    transform: scale(0.7);
+    position: absolute;
+    top: -100px;
+    animation: cair 5s linear forwards;
+    margin-left: -90px;
+  }
+
+  /* Animação de queda */
+  @keyframes cair {
+    from {
+      top: -100px;
+    }
+    to {
+      top: 100vh;
+    }
+  }
+
+  /* Define as pistas invisíveis (colunas) */
+  .pista {
+    top: 0;
+    width: 14vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pista1 { left: 0; }
+  .pista2 { left: 25vw; }
+  .pista3 { left: 50vw; }
+  .pista4 { left: 75vw; }
+
+.linhatipo1{
+    position: absolute;
+    background: white;
+    width: 8px;
+    height: 70px;
+    box-shadow: 
+    0 0 10px aqua, 
+    0 0 20px aqua, 
+    0 0 30px aqua, 
+    0 0 40px #2d6ba7;
+    margin-top: 30px;
+    margin-left: -0px;
+}
+.linhatipo2{
+    position: absolute;
+    background: white;
+    width: 8px;
+    height: 70px;
+    box-shadow: 
+    0 0 10px red, 
+    0 0 20px red, 
+    0 0 30px red, 
+    0 0 40px sienna;
+    margin-top: 30px;
+    margin-left: -0px;
+}
+.linhatipo3{
+    position: absolute;
+    background: white;
+    width: 8px;
+    height: 70px;
+    box-shadow: 
+    0 0 10px yellow, 
+    0 0 20px yellow, 
+    0 0 30px yellow, 
+    0 0 40px gold;
+    margin-top: 30px;
+    margin-left: -0px;
+}
+.linha1{
+    transform: rotate(60deg) translateX(-29px) translateY(-49px);
+}
+.linha2{
+    transform: rotate(-60deg) translateX(-28px) translateY(49px);
+}
+.linha3 {
+    transform: rotate(60deg) translateX(85px) translateY(-50px);
+}
+.linha4 {
+    transform: rotate(180deg) translateX(-114px) translateY(1px);
+}
+.linha5 {
+    transform: rotate(-60deg) translateX(86px) translateY(49px);
+}
+
+.backgroundtipo3{ 
+    position: absolute;
+    width: 120px;
+    height: 69px;
+    background: #a7a32d;
+    z-index: -1;
+    margin-top: 30px;
+}
+.backgroundtipo2{ 
+    position: absolute;
+    width: 120px;
+    height: 69px;
+    background: #a7472d;
+    z-index: -1;
+    margin-top: 30px;
+}
+.backgroundtipo1{ 
+    position: absolute;
+    width: 120px;
+    height: 69px;
+    background: #2d6ba7;
+    z-index: -1;
+    margin-top: 30px;
+}
+.background2{
+    transform: rotate(60deg);
+}
+.background3{
+    transform: rotate(120deg);
+}
+
+
+/* Círculo que servirá como cursor personalizado */
+.custom-cursor {
+    z-index: 1;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    pointer-events: none; /* Faz com que o círculo não interfira no clique */
+}

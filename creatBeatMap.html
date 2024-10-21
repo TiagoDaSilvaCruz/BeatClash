@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela de Criação</title>
+  <style>
+    .control-panel {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+    }
+
+    .pista {
+      width: 100px;
+      height: 500px;
+      border: 1px solid black;
+      display: inline-block;
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .hexagono {
+      width: 50px;
+      height: 50px;
+      background: red;
+      position: absolute;
+    }
+
+    #event-list {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="control-panel">
+    <label for="music-time">Tempo da Música: </label>
+    <input type="range" id="music-time" min="0" max="100" step="1" value="0">
+    <span id="time-label">0s</span>
+    
+    <button onclick="adicionarHexagono()">Adicionar Hexágono</button>
+    <button onclick="baixarArquivo()">Baixar Arquivo</button> <!-- Botão para baixar o arquivo -->
+  </div>
+
+  <!-- Controles de áudio -->
+  <audio id="audio" controls>
+    <source src="music.mp3" type="audio/mpeg">
+    Seu navegador não suporta a reprodução de áudio.
+  </audio>
+
+  <div class="pistas-container">
+    <div class="pista" id="pista-1">Pista 1</div>
+    <div class="pista" id="pista-2">Pista 2</div>
+    <div class="pista" id="pista-3">Pista 3</div>
+    <div class="pista" id="pista-4">Pista 4</div>
+  </div>
+
+  <div id="event-list">
+    <h3>Lista de Hexágonos:</h3>
+    <ul id="hexagono-list">
+      <!-- Hexágonos criados aparecerão aqui -->
+    </ul>
+  </div>
+
+  <script>
+    const hexagonoList = [];
+    const audio = document.getElementById('audio');
+    const musicTimeSlider = document.getElementById('music-time');
+    const timeLabel = document.getElementById('time-label');
+
+    // Sincroniza o tempo do slider com o tempo atual da música
+    audio.addEventListener('timeupdate', () => {
+      const currentTime = Math.floor(audio.currentTime);
+      musicTimeSlider.value = currentTime;
+      timeLabel.textContent = `${currentTime}s`;
+    });
+
+    // Atualiza o tempo da música ao ajustar o slider
+    musicTimeSlider.addEventListener('input', (e) => {
+      const time = e.target.value;
+      timeLabel.textContent = `${time}s`;
+      audio.currentTime = time;
+    });
+
+    // Função para adicionar hexágono em um tempo específico
+    function adicionarHexagono() {
+      const time = parseFloat(prompt("Digite o tempo em segundos (ex: 4.5):"));
+      if (isNaN(time)) {
+        alert('Tempo inválido!');
+        return;
+      }
+
+      const pistaEscolhida = prompt("Escolha a pista (1-4):");
+      if (pistaEscolhida < 1 || pistaEscolhida > 4) {
+        alert('Pista inválida! Escolha entre 1 e 4.');
+        return;
+      }
+
+      const tipoHexagono = prompt("Digite o tipo do hexágono (1, 2 ou 3):");
+      if (tipoHexagono < 1 || tipoHexagono > 3) {
+        alert('Tipo inválido! Escolha entre 1, 2 ou 3.');
+        return;
+      }
+
+      const hexagono = document.createElement('div');
+      hexagono.classList.add('hexagono');
+      hexagono.style.top = `${time * 5}px`; // Proporcional ao tempo para visualização
+      document.getElementById(`pista-${pistaEscolhida}`).appendChild(hexagono);
+
+      // Adicionar à lista de eventos
+      const li = document.createElement('li');
+      li.textContent = `Hexágono adicionado na Pista ${pistaEscolhida} em ${time}s, Tipo: ${tipoHexagono}`;
+      document.getElementById('hexagono-list').appendChild(li);
+
+      // Salva o hexágono
+      hexagonoList.push({ pista: pistaEscolhida, time: time, tipo: tipoHexagono });
+    }
+
+    // Função para baixar o arquivo txt com os dados
+    function baixarArquivo() {
+      let conteudo = "Hexágonos Criados:\n";
+      hexagonoList.forEach(hex => {
+        conteudo += `Pista: ${hex.pista}, Tempo: ${hex.time}s, Tipo: ${hex.tipo}\n`;
+      });
+
+      const blob = new Blob([conteudo], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+
+      // Cria o link de download
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'dados_hexagonos.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="logo.webp" type="image/x-icon">
+  <link rel="stylesheet" href="audioplayer.css">
+  <title>Beat Clash - Rhythm Battle</title> 
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+
+    .logo1 {
+      position: absolute;
+      width: 320px;
+      z-index: 1;
+      border-radius: 80%;
+      margin-bottom: 150px;
+      text-shadow: 0 0 5px #fff;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5), 0 0 20px rgba(0, 123, 255, 0.3), 0 0 30px rgba(0, 123, 255, 0.2);
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 60%;
+      max-width: 400px;
+    }
+
+    .menu {
+      bottom: 15%;
+      position: absolute;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu button {
+      background: none;
+      color: aqua;
+      border: 5px solid aqua;
+      padding: 11px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 12px;
+      margin: 10px;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      text-shadow: 0 0 5px #fff;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5), 0 0 20px rgba(0, 123, 255, 0.3), 0 0 30px rgba(0, 123, 255, 0.2);
+    }
+
+    .menu button:hover {
+      box-shadow: 0 0 20px rgba(0, 86, 179, 0.7), 0 0 30px rgba(0, 86, 179, 0.5), 0 0 40px rgba(0, 86, 179, 0.3);
+    }
+
+    .video-background{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .center-logo{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    footer {
+      color: #fff;
+      padding: 20px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+    footer .social-icons a {
+      margin: 0 10px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 20px;
+    }
+    footer .social-icons a:hover {
+      color: #ff9900;
+    }
+    footer .credits, footer .terms {
+      margin-top: 10px;
+    }
+    footer .credits a, footer .terms a {
+      color: #ff9900;
+      text-decoration: none;
+    }
+    footer .credits a:hover, footer .terms a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <video class="video-background" autoplay loop muted playsinline>
+    <source src="Music Note FREE Background Animation_ Loop_ 4k   FREE STOCK VIDEOS(720P_HD).mp4" type="video/mp4">
+    Seu navegador não suporta o elemento de vídeo.
+  </video>
+  
+  <div class="center-logo">
+    <img class="logo1" src="logo.webp" alt="">
+  </div>
+
+  <div class="container">
+    <div class="menu">
+      <button onclick="startGame()">Iniciar</button>
+      <button onclick="reloadGame()">Recarregar</button>
+      <button onclick="showOptions()">Opções</button>
+    </div>
+
+    <div class="audio-player">
+      <audio id="audio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+      
+      <!-- Botões de controle de áudio -->
+      <img onclick="togglePlay()" id="playButton" src="botao-play.png" alt="">
+      <img onclick="togglePlay()" id="PauseButton" src="botao-de-pausa.png" alt="">
+  
+  
+      <img class="voltar" onclick="prevtTrack()" src="passe-a-frente.png" alt="">
+  
+      <!-- Exibição do tempo -->
+      <div class="time-display">
+        <span id="current-time">00:00</span>
+        <span style="margin: 0 4px;">/</span>
+        <span id="total-time">00:00</span>
+      </div>
+  
+      <!-- Barra de progresso -->
+      <input type="range" id="progress-bar" class="progress-bar" value="0" max="100">
+  
+      <img class="passar" onclick="nextTrack()" src="passe-a-frente.png" alt="">
+  
+      <img src="sem-som.png" onclick="toggleMute()" id="muteButtonOff" alt="">
+      <img src="alto-falante.png" onclick="toggleMute()" id="muteButtonOn" alt="">
+    </div>
+  
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Beat Clash - Rhythm Battle. Todos os direitos reservados.</p>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank">Facebook</a> |
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    function startGame() {
+      alert("Jogo iniciado!");
+    }
+
+    function reloadGame() {
+      location.reload();
+    }
+
+    function showOptions() {
+      alert("Exibindo opções do jogo...");
+    }
+
+    function playMusic() {
+      document.querySelector("audio").play();
+    }
+
+    function pauseMusic() {
+      document.querySelector("audio").pause();
+    }
+  </script>
+
+  <script>
+    const audio = document.getElementById("audio");
+    const progressBar = document.getElementById("progress-bar");
+    const currentTimeDisplay = document.getElementById("current-time");
+    const totalTimeDisplay = document.getElementById("total-time");
+
+    const playButton = document.getElementById("playButton");
+    const PauseButton = document.getElementById("PauseButton");
+
+    const muteButtonOn = document.getElementById("muteButtonOn");
+    const muteButtonOff = document.getElementById("muteButtonOff");
+
+    const tracks = ["music.mp3", "music2.mp3", "music3.mp3"];
+    let currentTrack = 0;
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    audio.ontimeupdate = function() {
+      const percentage = (audio.currentTime / audio.duration) * 100;
+      progressBar.value = percentage;
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
+    };
+
+    audio.onloadedmetadata = function() {
+      totalTimeDisplay.textContent = formatTime(audio.duration);
+    };
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        playButton.style.display = "none";
+        PauseButton.style.display = "inline-block";
+      } else {
+        audio.pause();
+        playButton.style.display = "inline-block";
+        PauseButton.style.display = "none";
+      }
+    }
+
+    function toggleMute() {
+      if (audio.muted) {
+        audio.muted = false;
+        muteButtonOn.style.display = "inline-block";
+        muteButtonOff.style.display = "none";
+      } else {
+        audio.muted = true;
+        muteButtonOn.style.display = "none";
+        muteButtonOff.style.display = "inline-block";
+      }
+    }
+
+    function nextTrack() {
+      currentTrack = (currentTrack + 1) % tracks.length;
+      audio.src = tracks[currentTrack];
+      audio.play();
+      playButton.style.display = "none";
+      PauseButton.style.display = "inline-block";
+    }
+
+    function prevTrack() {
+      currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+      audio.src = tracks[currentTrack];
+      audio.play();
+      playButton.style.display = "none";
+      PauseButton.style.display = "inline-block";
+    }
+
+    progressBar.addEventListener("input", function() {
+      const seekTime = (progressBar.value / 100) * audio.duration;
+      audio.currentTime = seekTime;
+    });
+
+    window.onload = function() {
+      audio.play().catch(error => {
+        console.log("A reprodução automática foi bloqueada pelo navegador.", error);
+      });
+    };
+  </script>
+</body>
+</html>

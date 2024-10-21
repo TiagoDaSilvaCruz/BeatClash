@@ -1,0 +1,80 @@
+.audio-player {
+  position: absolute;
+  top: 2%;
+  left: 1%;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(65, 76, 148, 0.7);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.progress-bar {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  -webkit-appearance: none; /* Remove o estilo padrão do slider no Chrome/Safari */
+  appearance: none; /* Remove o estilo padrão do slider no Firefox */
+  height: 10px; /* Altura da barra de progresso */
+  border-radius: 5px; /* Arredondar as bordas da barra */
+  margin-left: 5px;
+}
+
+.progress-bar::-webkit-slider-thumb {
+-webkit-appearance: none; /* Remove o estilo padrão do thumb no Chrome/Safari */
+appearance: none; /* Remove o estilo padrão do thumb no Firefox */
+width: 20px; /* Largura do thumb */
+height: 20px; /* Altura do thumb */
+border-radius: 50%; /* Torna o thumb redondo */
+background: #000000; /* Cor do thumb */
+cursor: pointer; /* Muda o cursor quando passa sobre o thumb */
+}
+
+.progress-bar::-moz-range-thumb {
+width: 20px; /* Largura do thumb */
+height: 20px; /* Altura do thumb */
+border-radius: 50%; /* Torna o thumb redondo */
+background: #007bff; /* Cor do thumb */
+cursor: pointer; /* Muda o cursor quando passa sobre o thumb */
+}
+
+.time-display {
+  font-size: 14px;
+  color: #fff;
+  display: flex;
+}
+
+
+#playButton {
+  width: 40px;
+  margin-right: 10px;
+}
+#PauseButton {
+  width: 40px;
+  margin-right: 10px;
+  display: none;
+}
+
+
+#muteButtonOn{
+  width: 35px;
+  margin-left: 15px;
+}
+#muteButtonOff {
+  margin-left: 15px;
+  width: 35px;
+  display: none;
+}
+
+.passar{
+  width: 40px;
+  margin-left: 10px;
+}
+.voltar{
+  width: 40px;
+  margin-right: 10px;
+  transform: scaleX(-1);
+}
